@@ -77,15 +77,12 @@ public class SistemaController {
 			//Validando os chamados vencidos
 			List<Chamado> geral = chamadoDao.findAll();
 			for(Chamado c : geral) {
-				System.out.println("RES: "+c.getPrevisaoFechamentoAnalise().isBefore(LocalDateTime.now()));
 				if(c.getPrevisaoFechamentoAnalise().isBefore(LocalDateTime.now())) {
 					c.setVencido(true);
 					chamadoDao.save(c);
-					System.out.println("VENCIDO");
 				} else {
 					c.setVencido(false);
 					chamadoDao.save(c);
-					System.out.println("NORMAL");
 				}
 			}
 		}

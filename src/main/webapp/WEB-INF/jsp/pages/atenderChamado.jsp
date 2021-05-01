@@ -292,7 +292,6 @@ function goBack() {
 							<input type="text" value="Não" class="form-control" disabled>
 						</c:if>
 					</div>
-					
 					<div class="col-md-12 form-group-bordered">
 						<label>Atualizar Chamado:</label>
 						<textarea class="form-control" name="historicoChamado" rows="5" id="textareaDefault" placeholder="Escreva aqui no chamado."></textarea>
