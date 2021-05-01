@@ -63,6 +63,9 @@ public class Chamado {
 	private LocalDateTime dataFechamento;
 	
 	@Column
+	private Boolean vencido = false;
+	
+	@Column
 	private Boolean massivo = false;
 
 	public Integer getId() {
@@ -211,9 +214,21 @@ public class Chamado {
 		}catch(Exception e) {}
 		return null;
 	}
+	
+	public LocalDateTime getPrevisaoFechamentoAnalise() {
+		return previsaoFechamento;
+	}
 
 	public void setPrevisaoFechamento(LocalDateTime previsaoFechamento) {
 		this.previsaoFechamento = previsaoFechamento;
+	}
+
+	public Boolean getVencido() {
+		return vencido;
+	}
+
+	public void setVencido(Boolean vencido) {
+		this.vencido = vencido;
 	}
 	
 	

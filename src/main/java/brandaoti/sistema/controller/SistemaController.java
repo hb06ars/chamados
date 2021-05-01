@@ -73,6 +73,23 @@ public class SistemaController {
 		public static String iconePaginaAtual = "fa fa-home";
 		
 		
+		public void validarVencidos() {
+			//Validando os chamados vencidos
+			List<Chamado> geral = chamadoDao.findAll();
+			for(Chamado c : geral) {
+				System.out.println("RES: "+c.getPrevisaoFechamentoAnalise().isBefore(LocalDateTime.now()));
+				if(c.getPrevisaoFechamentoAnalise().isBefore(LocalDateTime.now())) {
+					c.setVencido(true);
+					chamadoDao.save(c);
+					System.out.println("VENCIDO");
+				} else {
+					c.setVencido(false);
+					chamadoDao.save(c);
+					System.out.println("NORMAL");
+				}
+			}
+		}
+		
 		public String gerarChamado() {
 			Random gerador = new Random();
 	    	Calendar data = Calendar.getInstance();
@@ -318,6 +335,10 @@ public class SistemaController {
 					c.setPrevisaoFechamento(LocalDateTime.now());
 					chamadoDao.save(c);
 				}
+				
+				validarVencidos();
+				
+				
 				//al.setPerfil(perfilDao.buscarSomenteAluno().get(0));
 				//usuarioDao.save(al);
 				
@@ -575,13 +596,18 @@ public class SistemaController {
 			modelAndView.addObject("iconePaginaAtual", iconePaginaAtual);
 			if(logado) {
 				if(usuarioSessao.getPerfil().getAdmin()) {
-					Integer todosClientes = usuarioDao.buscarClientes().size();
-					Usuario a = new Usuario();
-					Integer clientesAniversariantes = usuarioDao.buscarAniversariantes().size();
-					Integer novosDoMes = usuarioDao.novosDoMes().size();
-					modelAndView.addObject("todosClientes", todosClientes);
-					modelAndView.addObject("clientesAniversariantes", clientesAniversariantes);
-					modelAndView.addObject("novosDoMes", novosDoMes);
+					List<Chamado> todosChamados = chamadoDao.buscarTudo();
+					List<Chamado> todosAbertos = chamadoDao.buscarAbertos();
+					List<Chamado> todosVencidos= chamadoDao.buscarVencidos();
+					List<Chamado> todosAndamentos = chamadoDao.buscarAndamentos();
+					List<Chamado> todosEncerrados = chamadoDao.buscarEncerrados();
+					
+					modelAndView.addObject("todosChamados", todosChamados.size());
+					modelAndView.addObject("todosAbertos", todosAbertos.size());
+					modelAndView.addObject("todosVencidos", todosVencidos.size());
+					modelAndView.addObject("todosAndamentos", todosAndamentos.size());
+					modelAndView.addObject("todosEncerrados", todosEncerrados.size());
+					
 				}
 				
 			}
@@ -781,6 +807,7 @@ public class SistemaController {
 			modelAndView.addObject("iconePaginaAtual", iconePaginaAtual);
 			if(logado) {
 				//... Salvando dados.
+				validarVencidos();
 				atualizarPagina = "/todosChamados";
 				List<Chamado> chamados = chamadoDao.buscarTudo();
 				modelAndView.addObject("chamados", chamados);
@@ -801,6 +828,7 @@ public class SistemaController {
 			modelAndView.addObject("iconePaginaAtual", iconePaginaAtual);
 			if(logado) {
 				//... Salvando dados.
+				validarVencidos();
 				atualizarPagina = "/meusChamados";
 				List<Chamado> chamados = chamadoDao.buscarTudo();
 				modelAndView.addObject("chamados", chamados);
@@ -986,7 +1014,6 @@ public class SistemaController {
 					c.setStatus(s);
 					c.setCelular(chamado.getCelular());
 					c.setTelefone(chamado.getTelefone());
-					c.setDescricaoChamado(chamado.getDescricaoChamado());
 					c.setEmail(chamado.getEmail());
 					c.setNumeroChamado(chamado.getNumeroChamado());
 					

@@ -20,4 +20,20 @@ public interface ChamadoDao extends JpaRepository<Chamado, Integer> {
 	@Query(" select p from Chamado p where ativo = 1 and p.numeroChamado like :numeroChamado order by p.dataAbertura desc")
 	List<Chamado> buscarChamado(@Param("numeroChamado") String numeroChamado);
 
+	@Query(" select p from Chamado p where p.ativo = 1 and p.atendente is NULL and p.status.aberto = TRUE and p.previsaoFechamento >= now()")
+	List<Chamado> buscarAbertos();
+	
+	@Query(" select p from Chamado p where p.ativo = 1 and p.atendente is not NULL and p.status.encerrado = FALSE and p.previsaoFechamento >= now()")
+	List<Chamado> buscarAndamentos();
+	
+	@Query(" select p from Chamado p where p.ativo = 1 and p.status.encerrado = FALSE and p.previsaoFechamento <= now()")
+	List<Chamado> buscarVencidos();
+	
+	@Query(" select p from Chamado p where p.ativo = 1 and p.status.encerrado = TRUE")
+	List<Chamado> buscarEncerrados();
 }
+
+
+
+
+
