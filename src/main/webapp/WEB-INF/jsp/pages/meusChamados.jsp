@@ -76,7 +76,7 @@ function acao(valor){
 												<c:if test="${p.status.nome == 'Aberto'}">
 													<span style="color:red">${p.status.nome }</span>
 												</c:if>
-												<c:if test="${p.status.nome == 'Pendente Usuário' || p.status.nome == 'Pendente Usuário'}">
+												<c:if test="${p.status.nome == 'Pendente Suporte' || p.status.nome == 'Pendente Usuário'}">
 													<span style="color:orange">${p.status.nome }</span>
 												</c:if>
 												</td>
