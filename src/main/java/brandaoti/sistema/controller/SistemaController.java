@@ -613,7 +613,7 @@ public class SistemaController extends HttpServlet {
 				Usuario u = usuarioDao.fazerLogin(usuarioVal, senhaVal);
 				usuarioSessao = u;
 			}
-			if((usuarioSessao != null && usuarioSessao.getId() != null) && logado) {
+			if((usuarioSessao != null && usuarioSessao.getId() != null) || logado) {
 				logado=true;
 				session.setAttribute("usuarioSessao",usuarioSessao);
 				session.setAttribute("logado",logado);
