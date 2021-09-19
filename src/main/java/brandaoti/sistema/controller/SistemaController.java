@@ -698,8 +698,7 @@ public class SistemaController extends HttpServlet {
 				}
 				if(cliente.getMatricula() != null && (acao.equals("salvar")) && !repetido) {
 					try {
-						atualizarPagina = "/clientes";
-				    	Usuario a = new Usuario();
+						Usuario a = new Usuario();
 						a = cliente;
 						a.setSenha(cliente.getCpf().replace(".", "").replace("-", ""));
 						a.setPerfil(perfilDao.buscarSomenteCliente().get(0));
@@ -727,7 +726,6 @@ public class SistemaController extends HttpServlet {
 				} else if(cliente.getMatricula() != null && (acao.equals("salvar")) && repetido) {
 					modelAndView.addObject("erro", "Já existe este CPF / Matrícula.");
 				}
-				modelAndView.addObject("atualizarPagina", atualizarPagina);
 				List<Usuario> usuarios = usuarioDao.buscarClientes();
 				modelAndView.addObject("usuarios", usuarios);
 			}
