@@ -5,7 +5,7 @@
 
 		<!-- Basic -->
 		<meta charset="UTF-8">
-		<title>Chamados</title>
+		<title>Academia</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -38,6 +38,15 @@
 		<!-- Head Libs -->
 		<script src="/assets/vendor/modernizr/modernizr.js"></script>
 	</head>
+	
+	<style>
+		body {
+		 background-image: url("/assets/images/fundo.png");
+		 background-color: white;
+		 background-repeat: no-repeat;
+		 background-position: center;
+		}
+	</style>
 	<body>
 	
 	    <!-- screen loader -->
@@ -109,7 +118,7 @@
 					</div>
 				</div>
 
-				<p class="text-center text-muted mt-md mb-md">&copy; Copyright 2021. All Rights Reserved.</p>
+				<p class="text-center text-dark mt-md mb-md">&copy; Copyright 2021. All Rights Reserved.</p>
 			</div>
 		</section>
 		<!-- end: page -->
